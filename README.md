@@ -18,7 +18,7 @@
 
 ## Description
 
-The **Car Information Scraper** is a Next.js application designed to scrape detailed features and specifications of cars from Edmunds.com based on user input (year, make, and model). The application uses Puppeteer for web scraping and provides a responsive, user-friendly interface built with Tailwind CSS. Additionally, it supports dark mode for enhanced usability.
+The **Car Information Scraper** is a Next.js application designed to scrape detailed features and specifications of cars from Edmunds.com based on user input (year, make, and model). The application uses Puppeteer for web scraping and provides a responsive, user-friendly interface built with Tailwind CSS.
 
 This project demonstrates how to integrate modern web technologies with server-side scraping to deliver dynamic and interactive experiences.
 
@@ -28,7 +28,6 @@ This project demonstrates how to integrate modern web technologies with server-s
 
 - **User Input**: Allows users to enter the year, make, and model of a car.
 - **Web Scraping**: Fetches car features and specifications dynamically using Puppeteer.
-- **Dark Mode**: Provides a toggle for light and dark themes for better readability.
 - **Responsive Design**: Ensures compatibility across devices and screen sizes.
 - **Error Handling**: Displays meaningful error messages if data cannot be fetched.
 - **Efficient Performance**: Implements optimizations to speed up scraping processes.
