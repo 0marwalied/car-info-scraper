@@ -79,38 +79,40 @@ export default function Home() {
         <button type="submit">Submit</button>
       </form>
 
-      {isClient && carInfo && carInfo.features && carInfo.features.length > 0 ? (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Car Features:</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {carInfo.features.map((feature, index) => {
-                const [featureName, featureValue] = feature.split(': ');
-                return (
-                  <tr key={index}>
-                    <td>{featureName}</td>
-                    <td>{featureValue}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        carInfo && carInfo.features && carInfo.features.length === 0 ? (
-          <div className="message">No features found for this car.</div>
+      <div className={`mt-8 ${!isClient ? 'invisible' : ''}`}>
+        {carInfo && carInfo.features && carInfo.features.length > 0 ? (
+          <>
+            <h2 className="text-xl font-semibold mb-4">Car Features:</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {carInfo.features.map((feature, index) => {
+                  const [featureName, featureValue] = feature.split(': ');
+                  return (
+                    <tr key={index}>
+                      <td>{featureName}</td>
+                      <td>{featureValue}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
         ) : (
-          !carInfo || !carInfo.features ? (
-            <div className="message">Please submit a valid car make, model, and year.</div>
-          ) : null
-        )
-      )}
+          carInfo && carInfo.features && carInfo.features.length === 0 ? (
+            <div className="message">No features found for this car.</div>
+          ) : (
+            !carInfo || !carInfo.features ? (
+              <div className="message">Please submit a valid car make, model, and year.</div>
+            ) : null
+          )
+        )}
+      </div>
     </div>
   );
 }
