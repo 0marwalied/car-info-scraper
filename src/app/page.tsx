@@ -14,6 +14,7 @@ export default function Home() {
   const [model, setModel] = useState<string>('');
   const [carInfo, setCarInfo] = useState<CarInfo | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -21,6 +22,7 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch('/api/scrape', {
@@ -36,6 +38,8 @@ export default function Home() {
       setCarInfo(data);
     } catch (error) {
       console.error('Error fetching car information:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,11 +80,14 @@ export default function Home() {
             />
           </div>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Getting the data...' : 'Submit'}
+        </button>
       </form>
 
       <div className={`mt-8 ${!isClient ? 'invisible' : ''}`}>
-        {carInfo && carInfo.features && carInfo.features.length > 0 ? (
+        {loading && <p className="text-center text-blue-500">Fetching data, please wait...</p>}
+        {!loading && carInfo && carInfo.features && carInfo.features.length > 0 ? (
           <>
             <h2 className="text-xl font-semibold mb-4">Car Features:</h2>
             <table>
@@ -104,10 +111,10 @@ export default function Home() {
             </table>
           </>
         ) : (
-          carInfo && carInfo.features && carInfo.features.length === 0 ? (
+          !loading && carInfo && carInfo.features && carInfo.features.length === 0 ? (
             <div className="message">No features found for this car.</div>
           ) : (
-            !carInfo || !carInfo.features ? (
+            !loading && (!carInfo || !carInfo.features) ? (
               <div className="message">Please submit a valid car make, model, and year.</div>
             ) : null
           )
